@@ -11,6 +11,32 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">Server Config</div>
+                    <div class="card-body">
+                        <table class="table table-striped table-sm table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td><strong>Server Directory:</strong></td>
+                                    <td><code>{{ config.directory }}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Server JAR:</strong></td>
+                                    <td><code>{{ config.jar }}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Startup RAM:</strong></td>
+                                    <td><code>{{ config.startupRam }}</code></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Max RAM:</strong></td>
+                                    <td><code>{{ config.maxRam }}</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-7">
                 <server-console :is-running="isRunning" />
@@ -31,6 +57,7 @@
 
         data() {
             return {
+                config: window.config.serverConfig,
                 isRunning: false,
             }
         },

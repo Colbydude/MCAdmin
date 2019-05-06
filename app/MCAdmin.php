@@ -14,6 +14,12 @@ class MCAdmin
     public static function jsonVariables()
     {
         return [
+            'serverConfig' => [
+                'directory' => config('minecraft.directory'),
+                'jar' => config('minecraft.jar'),
+                'startupRam' => config('minecraft.ram.startup'),
+                'maxRam' => config('minecraft.ram.max')
+            ],
             'userId' => Auth::id() ?? null,
         ];
     }
