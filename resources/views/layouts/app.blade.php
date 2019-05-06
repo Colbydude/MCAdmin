@@ -21,7 +21,11 @@
         @include('layouts.partials.nav')
 
         <main class="py-4">
-            <router-view></router-view>
+            @if (Request::is('admin*'))
+                <router-view></router-view>
+            @else
+                @yield('content')
+            @endif
         </main>
     </div>
 

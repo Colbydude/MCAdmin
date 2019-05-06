@@ -14,10 +14,6 @@ class RouterController extends Controller
      */
     public function show(Request $request)
     {
-        if (auth()->guest()) {
-            return redirect()->route('login');
-        }
-
         return view('layouts.app', [
             'user' => $request->user()
         ]);
