@@ -1,0 +1,134 @@
+body {
+    background-color: white;
+    background-image: url('/img/bg-wool-white.png');
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    background-color: transparent;
+    font-weight: 600;
+}
+
+.navbar-logo {
+    height: 32px;
+    width: 120px;
+}
+
+.navbar-mc {
+    background-image: url('/img/bg-wool-dark.png');
+    background-position: center top;
+    background-size: auto 514px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+
+    .navbar-nav {
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+
+            &:hover, &:focus {
+                color: rgba(255, 255, 255, 1);
+            }
+        }
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    @media screen and (min-width: map-get($grid-breakpoints, "md")) {
+        background-size: auto 454px;
+    }
+
+    @media screen and (min-width: map-get($grid-breakpoints, "lg")) {
+        background-size: auto 442px;
+    }
+}
+
+@media screen and (max-width: map-get($grid-breakpoints, "md")) {
+    .navbar-mc {
+        .dropdown-item {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0;
+
+            &:hover, &:focus {
+                background-color: transparent;
+                color: rgba(255, 255, 255, 1);
+            }
+        }
+
+        .dropdown-menu {
+            background-color: transparent;
+            border: none;
+        }
+    }
+}
+
+.console {
+    font-family: 'Source Code Pro', monospace;
+    background-color: #33342c;
+    color: $mc-white;
+    min-height: 368px;
+    max-height: 368px;
+    overflow-y: scroll;
+    padding: 5px;
+    width: 100%;
+
+    &.show-info {
+        .log-info {
+            display: inline;
+        }
+    }
+
+    .log-info {
+        display: none;
+    }
+}
+
+.console::selection {
+    background: rgba(255, 255, 255, .4);
+    color: #fff;
+}
+
+.console-input {
+    font-family: 'Source Code Pro', monospace;
+    background-color: #33342c;
+    border: none;
+    border-radius: 0;
+    color: $mc-white;
+
+    &:focus {
+        background-color: #33342c;
+        box-shadow: none;
+        color: $mc-white;
+        outline: none;
+    }
+
+    &::placeholder {
+        color: $mc-gray;
+    }
+}
+
+.mc-black,          .mc-0   { color: $mc-black; }
+.mc-dark-blue,      .mc-1   { color: $mc-dark-blue; }
+.mc-dark-green,     .mc-2   { color: $mc-dark-green; }
+.mc-dark-aqua,      .mc-3   { color: $mc-dark-aqua; }
+.mc-dark-red,       .mc-4   { color: $mc-dark-red; }
+.mc-dark-purple,    .mc-5   { color: $mc-dark-purple; }
+.mc-gold,           .mc-6   { color: $mc-gold; }
+.mc-gray,           .mc-7   { color: $mc-gray; }
+.mc-dark-gray,      .mc-8   { color: $mc-dark-gray; }
+.mc-blue,           .mc-9   { color: $mc-blue; }
+.mc-green,          .mc-a   { color: $mc-green; }
+.mc-aqua,           .mc-b   { color: $mc-aqua; }
+.mc-red,            .mc-c   { color: $mc-red; }
+.mc-purple,         .mc-d   { color: $mc-purple; }
+.mc-yellow,         .mc-e   { color: $mc-yellow; }
+.mc-white,          .mc-f   { color: $mc-white; }
+
+.mc-bold,           .mc-l   { font-weight: bold; }
+.mc-strikethrough,  .mc-m   { text-decoration: line-through; }
+.mc-underline,      .mc-n   { text-decoration: underline; }
+.mc-italic,         .mc-o   { font-style: italic; }
+.mc-reset,          .mc-r   { color: inherit; font-style: normal; font-weight: normal; text-decoration: none; }

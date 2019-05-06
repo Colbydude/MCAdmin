@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', function() {
+    return redirect()->route('login');
+});
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/', 'RouterController@show')->name('admin.index');
+    Route::get('/{view}', 'RouterController@show')->where('view', '.*');
 });
