@@ -24,6 +24,8 @@
     },
     "dependencies": {
         "vue-router": "^3.0.6",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "xterm": "^3.12.2",
+        "zmodem.js": "^0.1.9"
     }
 }

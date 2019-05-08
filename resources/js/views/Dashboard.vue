@@ -77,7 +77,7 @@
                 .then(response => {
                     this.isRunning = response.data;
 
-                    window.setTimeout(this.serverRunning, 1000);
+                    window.setTimeout(this.serverRunning, 5000);
                 })
                 .catch(console.log);
             },
