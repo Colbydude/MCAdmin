@@ -50,7 +50,7 @@ class ServerController extends Controller
     public function log()
     {
         if (config('minecraft.edition') == 'bedrock') {
-            return response()->json(mclogparse2(file_backread(config('minecraft.directory'). 'Debug_Log.txt', 64)), 200);
+            return response()->json(mclogparse2(file_backread(config('minecraft.directory'). '/Debug_Log.txt', 64)), 200);
         }
 
         return response()->json(mclogparse2(file_backread(config('minecraft.directory') . '/logs/latest.log', 64)), 200);
