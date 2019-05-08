@@ -16,7 +16,7 @@ class MCAdmin
         return [
             'serverConfig' => [
                 'directory' => config('minecraft.directory'),
-                'jar' => config('minecraft.jar'),
+                'jar' => config('minecraft.exec'),
                 'startupRam' => config('minecraft.ram.startup'),
                 'maxRam' => config('minecraft.ram.max')
             ],

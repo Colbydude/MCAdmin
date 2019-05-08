@@ -7,10 +7,23 @@ use App\Exceptions\ServerException;
 
 class ServerService
 {
-    const CMD_SERVER_START = 'tmux new -d -s %s java -Xms%s -Xmx%s -jar %s nogui';
-    const CMD_SERVER_EXEC = 'tmux send-keys -t %s "%s" C-m';
-    const CMD_SERVER_KILL = 'tmux kill-session -t %s';
-    const CMD_SERVER_KILLALL = 'tmux kill-server';
+    const CMD = [
+
+        'bedrock' => [
+            'start' => 'tmux new -d -s %s LD_LIBRARY_PATH=. ./%s',
+            'exec' => 'tmux send-keys -t %s "%s" C-m',
+            'kill' => 'tmux kill-session -t %s',
+            'killall' => 'tmux kill-server'
+        ],
+
+        'java' => [
+            'start' => 'tmux new -d -s %s java -Xms%s -Xmx%s -jar %s nogui',
+            'exec' => 'tmux send-keys -t %s "%s" C-m',
+            'kill' => 'tmux kill-session -t %s',
+            'killall' => 'tmux kill-server'
+        ]
+
+    ];
 
     /**
      * The Minecraft server instance.
@@ -32,21 +45,33 @@ class ServerService
         }
 
         // Make sure the server jar exists.
-        if (!file_exists(config('minecraft.directory') . '/' . config('minecraft.jar'))) {
-            throw new ServerException('Could not find server jar file at '. config('minecraft.directory') . '/' . config('minecraft.jar') . '.');
+        if (!file_exists(config('minecraft.directory') . '/' . config('minecraft.exec'))) {
+            throw new ServerException('Could not find server jar file at '. config('minecraft.directory') . '/' . config('minecraft.exec') . '.');
         }
 
         // Launch server process in a detached GNU Screen.
-        shell_exec(
-            'cd ' . escapeshellarg(config('minecraft.directory')) . '; ' .   // Change to server directory.
-            sprintf(
-                self::CMD_SERVER_START,
-                escapeshellarg(config('minecraft.process_name')),
-                config('minecraft.ram.startup'),
-                config('minecraft.ram.max'),
-                escapeshellarg(config('minecraft.jar'))
-            )
-        );
+        if (config('minecraft.edition') == 'java') {
+            shell_exec(
+                'cd ' . escapeshellarg(config('minecraft.directory')) . '; ' .   // Change to server directory.
+                sprintf(
+                    self::CMD['java']['start'],
+                    escapeshellarg(config('minecraft.process_name')),
+                    config('minecraft.ram.startup'),
+                    config('minecraft.ram.max'),
+                    escapeshellarg(config('minecraft.exec'))
+                )
+            );
+        }
+        else if (config('minecraft.edition') == 'bedrock') {
+            shell_exec(
+                'cd ' . escapeshellarg(config('minecraft.directory')) . '; ' .   // Change to server directory.
+                sprintf(
+                    self::CMD['bedrock']['start'],
+                    escapeshellarg(config('minecraft.process_name')),
+                    escapeshellarg(config('minecraft.exec'))
+                )
+            );
+        }
     }
 
     /**
@@ -58,7 +83,7 @@ class ServerService
     public static function cmd($cmd) {
         shell_exec(
             sprintf(
-                self::CMD_SERVER_EXEC,
+                self::CMD[config('minecraft.edition')]['exec'],
                 escapeshellarg(config('minecraft.process_name')),
                 str_replace(['\\', '"'], ['\\\\', '\\"'], (get_magic_quotes_gpc() ? stripslashes($cmd) : $cmd))
             )
@@ -75,7 +100,7 @@ class ServerService
         shell_exec(
             // Run "stop" on the server.
             sprintf(
-                self::CMD_SERVER_EXEC,
+                self::CMD[config('minecraft.edition')]['exec'],
                 escapeshellarg(config('minecraft.process_name')),
                 'stop'
             ) . ';' .
@@ -85,7 +110,7 @@ class ServerService
 
             // Kill the process.
             sprintf(
-                self::CMD_SERVER_KILL,
+                self::CMD[config('minecraft.edition')]['kill'],
                 escapeshellarg(config('minecraft.process_name'))
             )
         );
@@ -100,7 +125,7 @@ class ServerService
     {
         shell_exec(
             sprintf(
-                self::CMD_SERVER_KILL,
+                self::CMD[config('minecraft.edition')]['kill'],
                 escapeshellarg(config('minecraft.process_name'))
             )
         );
@@ -113,7 +138,7 @@ class ServerService
      */
     public static function killAll()
     {
-        shell_exec(self::CMD_SERVER_KILLALL);
+        shell_exec(self::CMD[config('minecraft.edition')]['killall'],);
     }
 
     /**

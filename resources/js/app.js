@@ -22,6 +22,3 @@ const app = new Vue({
     el: '#app',
     router: new VueRouter(routes)
 });
-
-console.log(routes);
-console.log(app);
