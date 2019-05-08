@@ -10,7 +10,7 @@ class ServerService
     const CMD = [
 
         'bedrock' => [
-            'start' => 'tmux new -d -s %s LD_LIBRARY_PATH=. ./%s',
+            'start' => 'tmux new -d -s %s start.sh',
             'exec' => 'tmux send-keys -t %s "%s" C-m',
             'kill' => 'tmux kill-session -t %s',
             'killall' => 'tmux kill-server'
@@ -68,7 +68,6 @@ class ServerService
                 sprintf(
                     self::CMD['bedrock']['start'],
                     escapeshellarg(config('minecraft.process_name')),
-                    escapeshellarg(config('minecraft.exec'))
                 )
             );
         }

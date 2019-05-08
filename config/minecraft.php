@@ -14,7 +14,7 @@ return [
 
     'exec' => env('MINECRAFT_SERVER_EXEC', 'minecraft_server.jar'),
 
-    'process_name' => env('MINECRAFT_PROCESS_NAME', 'minecraft_server'),
+    'process_name' => env('MINECRAFT_SERVER_PROCESS_NAME', 'minecraft_server'),
 
     'ram' => [
 
